@@ -1,14 +1,10 @@
 package com.itsector.unsplash
 
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.itsector.unsplash.adapter.BaseAdapter
-import com.itsector.unsplash.adapter.OnSelectListener
-import com.itsector.unsplash.adapter.viewholder.PhotosViewHolder
-import com.itsector.unsplash.api.entities.PhotosEntity
+import androidx.recyclerview.widget.GridLayoutManager
+import com.itsector.unsplash.adapter.PhotosAdapter
 import com.itsector.unsplash.databinding.ActivityMainBinding
 import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -24,16 +20,16 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.rvPhotos.layoutManager = LinearLayoutManager(this)
+        val adapter = PhotosAdapter()
+
+        binding.rvPhotos.adapter = adapter
+        binding.rvPhotos.layoutManager = GridLayoutManager(this, 2)
 
         lifecycleScope.launchWhenCreated {
             viewModel.listPhotos.collectLatest { photos ->
-                binding.rvPhotos.adapter = BaseAdapter { viewGroup ->
-                    PhotosViewHolder(viewGroup)
-                }.apply {
-                    items = photos?.toMutableList() ?: mutableListOf(PhotosEntity())
-                }
+                adapter.submitData(photos)
             }
         }
     }
 }
+

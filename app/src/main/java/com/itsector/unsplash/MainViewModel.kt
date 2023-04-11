@@ -1,37 +1,22 @@
 package com.itsector.unsplash
 
 import androidx.lifecycle.ViewModel
-import com.itsector.unsplash.api.entities.PhotosEntity
+import androidx.lifecycle.viewModelScope
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
+import com.itsector.unsplash.api.entities.PhotoEntity
 import com.itsector.unsplash.data.MainRepository
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import com.itsector.unsplash.data.PER_PAGE
+import com.itsector.unsplash.data.PhotosPagingSource
+import kotlinx.coroutines.flow.Flow
 
 class MainViewModel(
     private val repository: MainRepository
 ) : ViewModel() {
 
-    private val _listPhotos = MutableStateFlow<List<PhotosEntity>?>(null)
-    val listPhotos: StateFlow<List<PhotosEntity>?> = _listPhotos
-
-    init {
-        getPhotos()
-    }
-
-    private fun getPhotos() {
-        repository.doNetworkCall().enqueue(object : Callback<List<PhotosEntity>> {
-            override fun onResponse(
-                call: Call<List<PhotosEntity>>,
-                response: Response<List<PhotosEntity>>
-            ) {
-                if (response.isSuccessful) {
-                    _listPhotos.value = response.body()
-                }
-            }
-
-            override fun onFailure(call: Call<List<PhotosEntity>>, t: Throwable) {}
-        })
-    }
+    val listPhotos: Flow<PagingData<PhotoEntity>> = Pager(PagingConfig(pageSize = PER_PAGE)) {
+        PhotosPagingSource(repository)
+    }.flow.cachedIn(viewModelScope)
 }

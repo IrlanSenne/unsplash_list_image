@@ -1,8 +1,7 @@
 package com.itsector.unsplash.api.entities
 
-data class PhotosEntity(
+data class PhotoEntity(
     val id: String? = "",
-    val description: String? = "",
     val urls: Urls? = null
 ) {
     data class Urls(

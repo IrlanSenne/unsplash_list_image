@@ -1,8 +1,8 @@
 package com.itsector.unsplash.data
 
-import com.itsector.unsplash.api.entities.PhotosEntity
+import com.itsector.unsplash.api.entities.PhotoEntity
 import retrofit2.Call
 
 interface MainRepository {
-    fun doNetworkCall(): Call<List<PhotosEntity>>
+    fun getPhotos(currentPage: Int): Call<List<PhotoEntity>>
 }
