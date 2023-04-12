@@ -1,8 +1,10 @@
-package com.itsector.unsplash.data
+package com.itsector.unsplash.data.paging
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.itsector.unsplash.api.entities.PhotoEntity
+import com.itsector.unsplash.data.repository.MainRepository
+import com.itsector.unsplash.data.entities.PhotoEntity
+import com.itsector.unsplash.data.repository.ERROR_API
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -27,7 +29,7 @@ class PhotosPagingSource(
                         if (response.isSuccessful) {
                             continuation.resume(response.body()?.toMutableList() ?: mutableListOf())
                         } else {
-                            continuation.resumeWithException(Exception("Network call failed"))
+                            continuation.resumeWithException(Exception(ERROR_API))
                         }
                     }
 

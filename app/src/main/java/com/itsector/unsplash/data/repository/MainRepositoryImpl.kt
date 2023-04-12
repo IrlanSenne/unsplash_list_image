@@ -1,7 +1,7 @@
-package com.itsector.unsplash.data
+package com.itsector.unsplash.data.repository
 
-import com.itsector.unsplash.api.UnsplashApi
-import com.itsector.unsplash.api.entities.PhotoEntity
+import com.itsector.unsplash.data.api.UnsplashApi
+import com.itsector.unsplash.data.entities.PhotoEntity
 import retrofit2.Call
 
 class MainRepositoryImpl(
@@ -16,5 +16,5 @@ class MainRepositoryImpl(
     }
 }
 
-const val PER_PAGE = 30
+const val PER_PAGE = 10
 const val ERROR_API = "Unknown Error"

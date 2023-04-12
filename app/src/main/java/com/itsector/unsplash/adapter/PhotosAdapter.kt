@@ -1,21 +1,26 @@
 package com.itsector.unsplash.adapter
 
+import android.content.Context
+import android.content.res.ColorStateList
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.ImageView
+import androidx.core.content.ContextCompat
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.itsector.unsplash.R
-import com.itsector.unsplash.api.entities.PhotoEntity
+import com.itsector.unsplash.data.entities.PhotoEntity
 import com.itsector.unsplash.databinding.ItemPhotoBinding
 import com.squareup.picasso.Picasso
 
-class PhotosAdapter : PagingDataAdapter<PhotoEntity, PhotosAdapter.PhotosViewHolder>(PHOTO_COMPARATOR) {
+class PhotosAdapter(private val context: Context, private val onPhotoClickListener: (PhotoEntity) -> Unit) :
+    PagingDataAdapter<PhotoEntity, PhotosAdapter.PhotosViewHolder>(PHOTO_COMPARATOR) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PhotosViewHolder {
         return PhotosViewHolder(
-            ItemPhotoBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            ItemPhotoBinding.inflate(LayoutInflater.from(parent.context), parent, false),
+            context,
+            onPhotoClickListener
         )
     }
 
@@ -38,13 +43,22 @@ class PhotosAdapter : PagingDataAdapter<PhotoEntity, PhotosAdapter.PhotosViewHol
         }
     }
 
-    class PhotosViewHolder(binding: ItemPhotoBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: PhotoEntity) {
-            val itemView = itemView.findViewById<ImageView>(R.id.iv_photo)
+    class PhotosViewHolder(
+        private val binding: ItemPhotoBinding,
+        private val context: Context,
+        private val onPhotoClickListener: (PhotoEntity) -> Unit
+    ) : RecyclerView.ViewHolder(binding.root) {
 
-            item.urls?.small?.let {
-                Picasso.get().load(it).into(itemView)
+        fun bind(item: PhotoEntity) {
+
+            binding.ivPhoto.apply {
+                item.urls?.small?.let { Picasso.get().load(it).into(this) }
             }
+
+            binding.cvPhoto.setOnClickListener { onPhotoClickListener(item) }
+
+            binding.tvLikes.text = item.likes.toString()
         }
     }
 }
+

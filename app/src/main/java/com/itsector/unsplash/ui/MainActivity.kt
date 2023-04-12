@@ -1,6 +1,7 @@
-package com.itsector.unsplash
+package com.itsector.unsplash.ui
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
@@ -20,7 +21,9 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val adapter = PhotosAdapter()
+        val adapter = PhotosAdapter(this) { photoEntity ->
+
+        }
 
         binding.rvPhotos.adapter = adapter
         binding.rvPhotos.layoutManager = GridLayoutManager(this, 2)

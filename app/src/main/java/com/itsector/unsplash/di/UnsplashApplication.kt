@@ -1,4 +1,4 @@
-package com.itsector.unsplash
+package com.itsector.unsplash.di
 
 import android.app.Application
 import com.itsector.unsplash.di.appModule

@@ -1,9 +1,11 @@
 package com.itsector.unsplash.di
 
-import com.itsector.unsplash.MainViewModel
-import com.itsector.unsplash.api.UnsplashApi
-import com.itsector.unsplash.data.MainRepository
-import com.itsector.unsplash.data.MainRepositoryImpl
+import com.itsector.unsplash.ui.MainViewModel
+import com.itsector.unsplash.data.api.UnsplashApi
+import com.itsector.unsplash.data.repository.MainRepository
+import com.itsector.unsplash.data.repository.MainRepositoryImpl
+import com.itsector.unsplash.data.repository.SetLikeUseCase
+import com.itsector.unsplash.data.repository.SetLikeUseCaseImpl
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import retrofit2.Retrofit
@@ -19,6 +21,7 @@ val appModule = module {
     }
 
     single<MainRepository> { MainRepositoryImpl(get()) }
+    single<SetLikeUseCase> { SetLikeUseCaseImpl(get()) }
 
     viewModel { MainViewModel(get()) }
 }
