@@ -7,10 +7,6 @@ data class PhotoEntity(
     val id: String? = "",
     @SerializedName("likes")
     val likes: Int? = 0,
-    @SerializedName("liked_by_user")
-    val likedByUser: Boolean? = false,
-    @SerializedName("description")
-    val description: String? = "",
     @SerializedName("urls")
     val urls: Urls? = null
 ) {

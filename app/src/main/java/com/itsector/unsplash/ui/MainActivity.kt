@@ -22,7 +22,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val adapter = PhotosAdapter(this) { photoEntity ->
-
+            Log.d("testDevice", "${photoEntity.id}")
+            photoEntity.id?.let { viewModel.trackRegister(it) }
         }
 
         binding.rvPhotos.adapter = adapter

@@ -8,14 +8,14 @@ import retrofit2.http.*
 interface UnsplashApi {
     @Headers("Authorization: Client-ID ${BuildConfig.API_KEY}")
     @GET("photos")
-    fun getPhotos(
+    suspend fun getPhotos(
         @Query("page") page: Int,
         @Query("per_page") perPage: Int
     ): Call<List<PhotoEntity>>
 
     @Headers("Authorization: Client-ID ${BuildConfig.API_KEY}")
     @POST("photos/{id}/download")
-    fun trackPhotoDownload(
+    suspend fun trackPhotoDownload(
         @Path("id") photoId: String
     ): Call<Unit>
 }

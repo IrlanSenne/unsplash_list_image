@@ -2,10 +2,10 @@ package com.itsector.unsplash.data.repository
 
 import com.itsector.unsplash.data.api.UnsplashApi
 
-class SetLikeUseCaseImpl(
+class TrackRegisterCaseImpl(
     private val api: UnsplashApi
-): SetLikeUseCase {
-    override fun setLike(photoId: String) {
+): TrackRegisterUseCase {
+    override suspend fun trackRegister(photoId: String) {
         try {
             api.trackPhotoDownload(photoId)
         } catch (e: Throwable) {
