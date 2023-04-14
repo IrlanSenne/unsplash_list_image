@@ -4,5 +4,5 @@ import com.itsector.unsplash.data.entities.PhotoEntity
 import retrofit2.Call
 
 interface MainRepository {
-    suspend fun getPhotos(currentPage: Int): Call<List<PhotoEntity>>
+    fun getPhotos(currentPage: Int): Call<List<PhotoEntity>>
 }

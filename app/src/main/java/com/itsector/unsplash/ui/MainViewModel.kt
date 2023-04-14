@@ -26,6 +26,7 @@ class MainViewModel(
 
     fun trackRegister(id: String) {
         viewModelScope.launch {
+            print("trackRegister")
             setTrackRegister.trackRegister(id)
         }
     }

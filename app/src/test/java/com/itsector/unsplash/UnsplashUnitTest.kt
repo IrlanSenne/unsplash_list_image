@@ -35,10 +35,8 @@ class UnsplashUnitTest {
         Mockito.`when`(api.getPhotos(ArgumentMatchers.anyInt(), ArgumentMatchers.anyInt())).thenReturn(call)
 
         val result = runBlocking { api.getPhotos(1, 10) }
-        assertNotNull(result.execute())
+        assertNotNull(result.execute().isSuccessful)
     }
-
-
     @Test
     fun `get photos - api error`() = runBlocking {
         val errorResponse = Response.error<List<PhotoEntity>>(
