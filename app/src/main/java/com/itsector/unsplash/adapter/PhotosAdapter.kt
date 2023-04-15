@@ -13,13 +13,13 @@ import com.itsector.unsplash.data.entities.PhotoEntity
 import com.itsector.unsplash.databinding.ItemPhotoBinding
 import com.squareup.picasso.Picasso
 
-class PhotosAdapter(private val context: Context, private val onPhotoClickListener: (PhotoEntity) -> Unit) :
-    PagingDataAdapter<PhotoEntity, PhotosAdapter.PhotosViewHolder>(PHOTO_COMPARATOR) {
+class PhotosAdapter(
+    private val onPhotoClickListener: (PhotoEntity) -> Unit
+) : PagingDataAdapter<PhotoEntity, PhotosAdapter.PhotosViewHolder>(PHOTO_COMPARATOR) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PhotosViewHolder {
         return PhotosViewHolder(
             ItemPhotoBinding.inflate(LayoutInflater.from(parent.context), parent, false),
-            context,
             onPhotoClickListener
         )
     }
@@ -34,18 +34,14 @@ class PhotosAdapter(private val context: Context, private val onPhotoClickListen
                 return oldItem.id == newItem.id
             }
 
-            override fun areContentsTheSame(
-                oldItem: PhotoEntity,
-                newItem: PhotoEntity
-            ): Boolean {
+            override fun areContentsTheSame(oldItem: PhotoEntity, newItem: PhotoEntity): Boolean {
                 return oldItem == newItem
             }
         }
     }
 
-    class PhotosViewHolder(
+    inner class PhotosViewHolder(
         private val binding: ItemPhotoBinding,
-        private val context: Context,
         private val onPhotoClickListener: (PhotoEntity) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
 
@@ -61,4 +57,5 @@ class PhotosAdapter(private val context: Context, private val onPhotoClickListen
         }
     }
 }
+
 

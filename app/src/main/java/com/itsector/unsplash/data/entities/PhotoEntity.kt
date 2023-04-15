@@ -7,6 +7,8 @@ data class PhotoEntity(
     val id: String? = "",
     @SerializedName("likes")
     val likes: Int? = 0,
+    @SerializedName("description")
+    val description: String? = "",
     @SerializedName("urls")
     val urls: Urls? = null
 ) {
