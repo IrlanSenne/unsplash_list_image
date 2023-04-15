@@ -14,7 +14,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 val appModule = module {
     single {
         Retrofit.Builder()
-            .baseUrl("https://api.unsplash.com/")
+            .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(UnsplashApi::class.java)
@@ -25,3 +25,5 @@ val appModule = module {
 
     viewModel { MainViewModel(get(), get()) }
 }
+
+const val BASE_URL = "https://api.unsplash.com/"
