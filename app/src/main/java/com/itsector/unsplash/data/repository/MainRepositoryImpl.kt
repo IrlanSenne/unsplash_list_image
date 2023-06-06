@@ -11,7 +11,7 @@ class MainRepositoryImpl(
         return try {
             api.getPhotos(currentPage, PER_PAGE)
         } catch (e: Throwable) {
-            throw Throwable(ERROR_API)
+            throw Throwable(ERROR_API) // test
         }
     }
 }
